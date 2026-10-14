@@ -1,0 +1,63 @@
+import java.util.Properties
+
+plugins {
+    id 'com.android.application'
+}
+
+def fb = new Properties()
+def fbFile = rootProject.file('firebase.properties')
+if (fbFile.exists()) fbFile.withInputStream { fb.load(it) }
+
+// signing: keys live OUTSIDE the project (never committed). See README in android-app.
+def keyFile = new File(System.getProperty('user.home'), 'android-sdk/keys/keystore.properties')
+def ks = new Properties()
+if (keyFile.exists()) keyFile.withInputStream { ks.load(it) }
+
+android {
+    namespace 'site.rishit.snapnote'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'site.rishit.snapnote'
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+        buildConfigField 'String', 'FB_API_KEY', "\"${fb.getProperty('apiKey', '')}\""
+        buildConfigField 'String', 'FB_APP_ID', "\"${fb.getProperty('appId', '')}\""
+        buildConfigField 'String', 'FB_PROJECT_ID', "\"${fb.getProperty('projectId', '')}\""
+        buildConfigField 'String', 'FB_SENDER_ID', "\"${fb.getProperty('senderId', '')}\""
+        buildConfigField 'String', 'SITE', '"https://snapnote.rishit.site"'
+    }
+
+    buildFeatures { buildConfig true }
+
+    signingConfigs {
+        if (ks.containsKey('storeFile')) {
+            release {
+                storeFile new File(ks.getProperty('storeFile'))
+                storePassword ks.getProperty('storePassword')
+                keyAlias ks.getProperty('keyAlias')
+                keyPassword ks.getProperty('keyPassword')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (ks.containsKey('storeFile')) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.5.0'
+    implementation 'com.google.firebase:firebase-messaging:24.1.0'
+}
