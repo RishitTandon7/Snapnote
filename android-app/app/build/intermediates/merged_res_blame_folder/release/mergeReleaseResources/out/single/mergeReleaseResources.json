@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "site.rishit.snapnote.app-main-5:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/drawable_ic_call.xml.flat",
+        "source": "site.rishit.snapnote.app-main-5:/drawable/ic_call.xml"
+    },
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/drawable_splash_logo.xml.flat",
+        "source": "site.rishit.snapnote.app-main-5:/drawable/splash_logo.xml"
+    },
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "site.rishit.snapnote.app-main-5:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "site.rishit.snapnote.app-main-5:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "site.rishit.snapnote.app-main-5:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "site.rishit.snapnote.app-release-4:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "site.rishit.snapnote.app-main-5:/mipmap-xxhdpi/ic_launcher.png"
+    }
+]
