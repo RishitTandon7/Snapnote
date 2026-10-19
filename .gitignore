@@ -1,0 +1,15 @@
+node_modules
+dist
+dev-dist
+.env
+.env.local
+.firebase
+*.log
+
+.vercel
+.env*
+
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+android-app/local.properties
