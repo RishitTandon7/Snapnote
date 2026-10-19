@@ -1,0 +1,13 @@
+R_DEF: Internal format may change without notice
+local
+color callBg
+color splashBg
+color statusBar
+drawable ic_call
+drawable splash_logo
+mipmap ic_launcher
+string app_name
+string asset_statements
+style Theme.Snapnote
+style Theme.Snapnote.Call
+style Theme.Snapnote.Starting
