@@ -1,0 +1,22 @@
+/* Original (pre-redesign) look of the call screen, pinned. Do not edit. */
+
+/* the page background the call screen was designed on */
+html.call-active body {
+  color: #14161f;
+  background: radial-gradient(130% 70% at 15% 0%, #eef0fb 0%, #dcdfed 48%, #c8ccdf 100%) fixed;
+}
+
+/* original design tokens (R G B) */
+.call-scope {
+  --ink: 20 22 31;        /* #14161f */
+  --paper: 220 223 236;   /* #dcdfec */
+  --card: 255 255 255;
+  --card2: 238 240 248;   /* #eef0f8 */
+  --line: 227 229 240;    /* #e3e5f0 */
+  --mute: 107 112 132;    /* #6b7084 */
+  --coral: 242 103 79;    /* #f2674f */
+  --pink: 255 92 138;     /* #ff5c8a */
+  --danger: 244 83 63;    /* #f4533f */
+  height: 100%;
+  color: #14161f;
+}
