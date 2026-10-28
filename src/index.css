@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───── design tokens (R G B channels) – tweak the whole look here ───── */
+:root {
+  color-scheme: light;
+  --bg-from: 217 219 232;     /* #d9dbe8 page gradient top  */
+  --bg-to: 236 238 246;       /* #eceef6 page gradient bottom */
+  --ink: 15 18 32;            /* #0f1220 navy/black */
+  --paper: 217 219 232;
+  --card: 255 255 255;
+  --card2: 238 240 248;
+  --line: 227 229 240;
+  --mute: 107 112 132;        /* muted grey text */
+  --coral: 255 93 122;        /* #ff5d7a highlighted words, "View All" */
+  --pink: 255 93 122;
+  --danger: 244 83 63;
+  --violet: 124 92 255;       /* #7c5cff hero gradient start */
+  --blush: 255 122 198;       /* #ff7ac6 hero gradient end */
+  --online: 76 217 100;
+  --tint-pink: 253 228 230;   /* #fde4e6 */
+  --tint-blue: 223 232 251;   /* #dfe8fb */
+  --tint-green: 225 243 221;  /* #e1f3dd */
+  --tint-amber: 251 236 205;
+}
+html, body, #root { height: 100%; }
+html { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+
+/* ── app feel: no text selection, long-press callouts, tap-zoom or image dragging (inputs stay selectable) ── */
+body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: manipulation; }
+input, textarea, [contenteditable], .selectable { -webkit-user-select: text; user-select: text; }
+img, svg { -webkit-user-drag: none; }
+a, button { -webkit-touch-callout: none; }
+
+body {
+  margin: 0;
+  color: rgb(var(--ink));
+  font-family: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, rgb(var(--bg-from)) 0%, rgb(var(--bg-to)) 100%) fixed;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+button { font: inherit; color: inherit; }
+input, textarea { font: inherit; }
+
+@layer components {
+  /* ── design system v2 (used by every screen except the call screen) ── */
+  .ui-btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[15px] font-semibold transition active:scale-95 disabled:opacity-40 disabled:active:scale-100; }
+  .ui-btn-dark { @apply ui-btn bg-ink text-white shadow-lg shadow-ink/25; }
+  .ui-btn-light { @apply ui-btn bg-white text-ink shadow-soft; }
+  .ui-btn-danger { @apply ui-btn bg-danger/10 text-danger; }
+  .ui-field { @apply w-full rounded-full bg-white px-5 py-3.5 text-[15px] text-ink shadow-soft outline-none placeholder:text-ink/35 focus:ring-2 focus:ring-ink/15; }
+  .ui-card { @apply rounded-[28px] bg-white shadow-soft; }
+  .ui-glass { @apply border border-white/70 bg-white/55 shadow-glass backdrop-blur-xl; }
+  .ui-section { @apply mb-3 mt-6 flex items-end justify-between; }
+  .ui-h2 { @apply text-[21px] font-semibold leading-tight; }
+  .ui-link { @apply text-[14px] font-medium text-coral underline underline-offset-2; }
+  .ui-sub { @apply text-[14px] text-mute; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-semibold transition active:scale-95 disabled:opacity-40 disabled:active:scale-100; }
+  .btn-primary { @apply btn bg-ink text-white shadow-lg shadow-ink/20; }
+  .btn-ghost { @apply btn bg-white text-ink border border-line shadow-soft; }
+  .btn-danger { @apply btn bg-danger/10 text-danger border border-danger/25; }
+  .field { @apply w-full rounded-2xl border border-line bg-white px-4 py-3 text-ink placeholder:text-ink/35 outline-none shadow-soft focus:border-ink/40; }
+  .card { @apply rounded-3xl bg-white shadow-soft; }
+  .glass { @apply bg-white/60 backdrop-blur-xl border border-white/70 shadow-glass; }
+  .gradient-text { @apply bg-brand bg-clip-text text-transparent; }
+}
+
+.bg-page { background: linear-gradient(180deg, rgb(var(--bg-from)) 0%, rgb(var(--bg-to)) 100%); }
+.safe-top { border-top: env(safe-area-inset-top) solid transparent; }  /* border, so it never fights pt-* utilities */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* ───── splash: the name, written by hand ───── */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .35s ease both; }
+
+.splash { transition: opacity .7s cubic-bezier(.4,0,.2,1), filter .7s ease, transform .7s cubic-bezier(.4,0,.2,1), visibility .7s; }
+.splash-out { opacity: 0; visibility: hidden; filter: blur(6px); transform: scale(1.03); }
+
+/* each letter: the outline is drawn first (stroke-dashoffset), then the ink fills in */
+@keyframes sig-draw { to { stroke-dashoffset: 0; } }
+@keyframes sig-fill { to { fill-opacity: 1; stroke-width: .5px; } }
+.sig-path {
+  fill: rgb(var(--ink)); fill-opacity: 0;
+  stroke: rgb(var(--ink)); stroke-width: 2.2px; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: var(--len); stroke-dashoffset: var(--len);
+  animation:
+    sig-draw var(--d) var(--delay) cubic-bezier(.55,.1,.35,1) forwards,
+    sig-fill .35s calc(var(--delay) + var(--d) * .6) ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sig-path { animation: none; stroke-dashoffset: 0; fill-opacity: 1; stroke-width: .5px; }
+}
+
+/* ───── toasts / skeleton ───── */
+@keyframes toast-in { from { opacity: 0; transform: translateY(-10px) scale(.96); } to { opacity: 1; transform: none; } }
+.toast-in { animation: toast-in .25s ease both; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.skeleton { background: linear-gradient(90deg,#e9ebf5 25%,#f6f7fc 37%,#e9ebf5 63%); background-size: 200% 100%; animation: shimmer 1.3s infinite linear; border-radius: 1rem; }
+
+/* ───── display mode (camera stays dark) ───── */
+@keyframes flash { 0% { opacity: .95; } 100% { opacity: 0; } }
+.flash { animation: flash .45s ease-out forwards; }
+@keyframes msg-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.msg-in { animation: msg-in .35s ease both; }
+.shutter { transition: transform .12s ease; }
+.shutter:active { transform: scale(.88); }
+.text-shadow { text-shadow: 0 2px 14px rgba(0,0,0,.65); }
+
+/* waveform glyph used on tiles */
+@keyframes wave { 0%,100% { transform: scaleY(.4); } 50% { transform: scaleY(1); } }
+.wave i { display: inline-block; width: 2px; margin: 0 1px; height: 12px; border-radius: 2px; background: currentColor; transform-origin: center; }
+.wave.live i { animation: wave 1s ease-in-out infinite; }
+.wave i:nth-child(2) { animation-delay: .15s; height: 16px; } .wave i:nth-child(3) { animation-delay: .3s; height: 10px; } .wave i:nth-child(4) { animation-delay: .45s; height: 14px; }
+
+/* app update: a quiet sweep while updating, a small check when done */
+@keyframes upd-sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+@keyframes upd-pop { 0% { opacity: 0; transform: translateY(-8px) scale(.94); } 12%, 82% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-6px) scale(.97); } }
+.upd-sweep { animation: upd-sweep 1.1s ease-in-out infinite; }
+.upd-pop { animation: upd-pop 2.6s ease both; }
+
+/* ───── dark mode: `dark` class on <html> (Settings → Appearance; "Auto" follows the phone) ───── */
+html.dark {
+  color-scheme: dark;
+  --bg-from: 14 16 28; --bg-to: 22 24 40;
+  --ink: 236 238 248; --paper: 14 16 28;
+  --card: 31 34 52; --card2: 41 45 66; --line: 54 58 82;
+  --mute: 154 160 186;
+  --tint-pink: 74 40 52; --tint-blue: 38 50 84; --tint-green: 36 66 50; --tint-amber: 78 62 34;
+}
+html.dark .bg-white { background-color: rgb(var(--card)); }
+html.dark [class*="bg-white/"] { background-color: rgb(var(--card) / .72); }
+html.dark [class*="border-white/"] { border-color: rgb(255 255 255 / .1); }
+html.dark .shadow-soft { box-shadow: 0 8px 30px -12px rgba(0,0,0,.55); }
+html.dark .shadow-glass { box-shadow: 0 10px 40px -10px rgba(0,0,0,.6); }
+/* buttons that were dark-with-white-text become light-with-dark-text */
+html.dark .bg-ink { color: #0f1220; }
+html.dark .bg-ink [class*="text-white/"] { color: rgb(15 18 32 / .6); }
+html.dark [class*="bg-[#cfe9d6]"] { color: #14161f; }
+html.dark .placeholder\:text-ink\/35::placeholder { color: rgb(var(--mute)); }
+/* call screen: same pinned layout, dark colours */
+html.dark .call-scope { --ink: 236 238 248; --card: 31 34 52; --card2: 41 45 66; --line: 54 58 82; --mute: 154 160 186; color: #eceef8; }
+html.dark.call-active body { color: #eceef8; background: radial-gradient(130% 70% at 15% 0%, #1c2036 0%, #12141f 55%, #0b0c14 100%) fixed; }
+html.dark .call-scope [aria-label^="Maximise"] { background-image: linear-gradient(160deg, #2a2e47, #1b1e30) !important; }
+/* the component classes above are built with @apply, so they need their own dark colours */
+html.dark .ui-field, html.dark .field, html.dark .ui-card, html.dark .card, html.dark .ui-btn-light, html.dark .btn-ghost { background-color: rgb(var(--card)); }
+html.dark .btn-ghost, html.dark .field { border-color: rgb(var(--line)); }
+html.dark .ui-glass, html.dark .glass { background-color: rgb(var(--card) / .62); border-color: rgb(255 255 255 / .1); }
+html.dark .ui-btn-dark, html.dark .btn-primary { color: #0f1220; }
+/* dark polish */
+html.dark .scrim { background-color: rgb(4 5 12 / .62); }
+html.dark [class*="bg-white/9"] { background-color: rgb(var(--card)); }           /* sheets stay solid */
+html.dark .text-emerald-700 { color: #5fe08a; }
+html.dark .text-danger { color: #ff7a8a; }
+html.dark .border-emerald-500\/30 { border-color: rgb(95 224 138 / .35); }
+html.dark .ring-white { --tw-ring-color: rgb(var(--card)); }                      /* avatar stacks: ring matches the card */
+html.dark .bg-ink\/5, html.dark .bg-ink\/10 { background-color: rgb(255 255 255 / .08); }
+html.dark .bg-ink\/15 { background-color: rgb(255 255 255 / .16); }                 /* switch "off" track */
+html.dark [class*="shadow-ink/"] { --tw-shadow-color: rgb(0 0 0 / .45); }
+/* the full-screen picture view is always black, so its white buttons stay white in dark mode too */
+html.dark .keep-light .bg-white { background-color: #fff; color: #14161f; }
+html.dark .keep-light [class*="bg-white/"] { background-color: rgb(255 255 255 / .15); }
+html.dark .keep-light [class*="border-white/"] { border-color: rgb(255 255 255 / .9); }
