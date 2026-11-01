@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="callBg">#0E101C</color>
+    <color name="splashBg">#ECEEF6</color>
+    <color name="statusBar">#D9DBE8</color>
+    <string name="app_name">Snapnote</string>
+    <string name="asset_statements">[{\"relation\": [\"delegate_permission/common.handle_all_urls\"], \"target\": {\"namespace\": \"web\", \"site\": \"https://snapnote.rishit.site\"}}]</string>
+    <style name="Theme.Snapnote" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/splashBg</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
+    </style>
+    <style name="Theme.Snapnote.Call" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/callBg</item>
+        <item name="android:statusBarColor">@color/callBg</item>
+        <item name="android:navigationBarColor">@color/callBg</item>
+        <item name="android:windowShowWallpaper">false</item>
+    </style>
+    <style name="Theme.Snapnote.Starting" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/splashBg</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
+        <item name="android:navigationBarColor">@color/statusBar</item>
+    </style>
+</resources>
