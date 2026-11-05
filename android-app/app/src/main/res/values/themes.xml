@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Snapnote" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/splashBg</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
+    </style>
+    <style name="Theme.Snapnote.Starting" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/splashBg</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
+        <item name="android:navigationBarColor">@color/statusBar</item>
+    </style>
+    <style name="Theme.Snapnote.Call" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/callBg</item>
+        <item name="android:statusBarColor">@color/callBg</item>
+        <item name="android:navigationBarColor">@color/callBg</item>
+        <item name="android:windowShowWallpaper">false</item>
+    </style>
+</resources>
