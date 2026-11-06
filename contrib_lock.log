@@ -765,3 +765,4 @@
 2026-11-05 20:28:48 - Add proguard-defaults.txt-8.7.3
 2026-11-05 20:30:03 - Add option-assertions.js.map
 2026-11-05 20:59:13 - Add buffer.js.map
+2026-11-06 08:08:21 - Add rewrite-stack-trace.js
