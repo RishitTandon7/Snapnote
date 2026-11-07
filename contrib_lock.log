@@ -809,3 +809,4 @@
 2026-11-07 10:43:25 - Add plugins.js
 2026-11-07 11:10:43 - Add jsesc.cmd
 2026-11-07 11:20:28 - Add resolve-targets.js.map
+2026-11-07 11:25:49 - Add corejs2-built-ins.js
