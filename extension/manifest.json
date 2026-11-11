@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Snapnote Sync",
+  "version": "1.0.0",
+  "description": "Keeps Netflix, YouTube, Prime Video, Disney+ Hotstar and other players in sync with your Snapnote watch party.",
+  "icons": { "128": "icon.png" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["tabs", "storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://snapnote.rishit.site/*"],
+      "js": ["content-snapnote.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://*.netflix.com/*",
+        "https://*.youtube.com/*",
+        "https://*.primevideo.com/*",
+        "https://*.disneyplus.com/*",
+        "https://*.hotstar.com/*",
+        "https://*.jiocinema.com/*",
+        "https://*.hulu.com/*",
+        "https://*.max.com/*",
+        "https://*.twitch.tv/*"
+      ],
+      "js": ["content-player.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://*.netflix.com/*"],
+      "js": ["page-netflix.js"],
+      "world": "MAIN",
+      "run_at": "document_start"
+    }
+  ]
+}
